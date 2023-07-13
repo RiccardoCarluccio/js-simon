@@ -1,6 +1,7 @@
 const MAIN_TITLE = document.getElementById('main-title');
+const COUNTDOWN_TIMER = document.getElementById('countdown-timer');
 
-const TARGET_DATE = new Date('Jul 13, 2023 9:30').getTime();
+const TARGET_DATE = new Date('Jul 14, 2023 9:30').getTime();
 
 function displayCurrentTime() {
   const NOW = new Date();
@@ -26,6 +27,16 @@ function displayCurrentTime() {
   }
 
   const TIME_DIFFERENCE = TARGET_DATE - NOW_MILLI;
+
+  const COUNT_HOURS = Math.floor((TIME_DIFFERENCE % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const COUNT_MINUTES = Math.floor((TIME_DIFFERENCE % (1000 * 60 * 60)) / (1000 * 60));
+  const COUNT_SECONDS = Math.floor((TIME_DIFFERENCE % (1000 * 60)) / 1000);
+
+  if (COUNT_SECONDS < 10) {
+    COUNTDOWN_TIMER.innerHTML = (`${COUNT_HOURS}:${COUNT_MINUTES}:0${COUNT_SECONDS}`);
+  } else {
+    COUNTDOWN_TIMER.innerHTML = (`${COUNT_HOURS}:${COUNT_MINUTES}:${COUNT_SECONDS}`);
+  }
 }
 
 setInterval(displayCurrentTime, 100);
