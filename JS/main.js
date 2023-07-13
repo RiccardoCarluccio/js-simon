@@ -32,3 +32,5 @@ function formatDigit(num, minDigits) {
 
   return formattedNumber;
 }
+
+//riga 15 e 23 si possono snellire con una funzione
