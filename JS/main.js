@@ -12,19 +12,21 @@ function displayCurrentTime() {
   const SECONDS = NOW.getSeconds();
   const MILLISECONDS = NOW.getMilliseconds();
   
-  if (SECONDS < 10 && MILLISECONDS > 10 && MILLISECONDS < 100) {
-    MAIN_TITLE.innerHTML = (`${HOURS}:${MINUTES}:0${SECONDS}:0${MILLISECONDS}`);
-  } else if (SECONDS < 10 && MILLISECONDS < 10) {
-    MAIN_TITLE.innerHTML = (`${HOURS}:${MINUTES}:0${SECONDS}:00${MILLISECONDS}`);
-  } else if (SECONDS < 10) {
-    MAIN_TITLE.innerHTML = (`${HOURS}:${MINUTES}:0${SECONDS}:${MILLISECONDS}`);
-  } else if (MILLISECONDS > 10 && MILLISECONDS < 100) {
-    MAIN_TITLE.innerHTML = (`${HOURS}:${MINUTES}:${SECONDS}:0${MILLISECONDS}`);
-  } else if (MILLISECONDS < 10) {
-    MAIN_TITLE.innerHTML = (`${HOURS}:${MINUTES}:${SECONDS}:00${MILLISECONDS}`);
-  } else {
-    MAIN_TITLE.innerHTML = (`${HOURS}:${MINUTES}:${SECONDS}:${MILLISECONDS}`);
-  }
+  MAIN_TITLE.innerHTML = `${formatDigit(HOURS)}:${formatDigit(MINUTES)}:${formatDigit(SECONDS)}:${formatDigit(MILLISECONDS)}`;
+
+  // if (SECONDS < 10 && MILLISECONDS > 10 && MILLISECONDS < 100) {
+  //   MAIN_TITLE.innerHTML = (`${HOURS}:${MINUTES}:0${SECONDS}:0${MILLISECONDS}`);
+  // } else if (SECONDS < 10 && MILLISECONDS < 10) {
+  //   MAIN_TITLE.innerHTML = (`${HOURS}:${MINUTES}:0${SECONDS}:00${MILLISECONDS}`);
+  // } else if (SECONDS < 10) {
+  //   MAIN_TITLE.innerHTML = (`${HOURS}:${MINUTES}:0${SECONDS}:${MILLISECONDS}`);
+  // } else if (MILLISECONDS > 10 && MILLISECONDS < 100) {
+  //   MAIN_TITLE.innerHTML = (`${HOURS}:${MINUTES}:${SECONDS}:0${MILLISECONDS}`);
+  // } else if (MILLISECONDS < 10) {
+  //   MAIN_TITLE.innerHTML = (`${HOURS}:${MINUTES}:${SECONDS}:00${MILLISECONDS}`);
+  // } else {
+  //   MAIN_TITLE.innerHTML = (`${HOURS}:${MINUTES}:${SECONDS}:${MILLISECONDS}`);
+  // }
 
   const TIME_DIFFERENCE = TARGET_DATE - NOW_MILLI;
 
@@ -32,13 +34,14 @@ function displayCurrentTime() {
   const COUNT_MINUTES = Math.floor((TIME_DIFFERENCE % (1000 * 60 * 60)) / (1000 * 60));
   const COUNT_SECONDS = Math.floor((TIME_DIFFERENCE % (1000 * 60)) / 1000);
 
-  if (COUNT_SECONDS < 10) {
-    COUNTDOWN_TIMER.innerHTML = (`${COUNT_HOURS}:${COUNT_MINUTES}:0${COUNT_SECONDS}`);
-  } else {
-    COUNTDOWN_TIMER.innerHTML = (`${COUNT_HOURS}:${COUNT_MINUTES}:${COUNT_SECONDS}`);
-  }
+  COUNTDOWN_TIMER.innerHTML = `${formatDigit(COUNT_HOURS)}:${formatDigit(COUNT_MINUTES)}:${formatDigit(COUNT_SECONDS)}`;
 }
 
 setInterval(displayCurrentTime, 100);
 
-//.getTime() per prendere i millisecondi per poter fare la differenza necessaria al countdown
+function formatDigit(num) {
+  if (num < 10) {
+    num = `0${num}`;
+  }
+  return num;
+}
