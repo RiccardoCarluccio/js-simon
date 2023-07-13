@@ -12,21 +12,7 @@ function displayCurrentTime() {
   const SECONDS = NOW.getSeconds();
   const MILLISECONDS = NOW.getMilliseconds();
   
-  MAIN_TITLE.innerHTML = `${formatDigit(HOURS)}:${formatDigit(MINUTES)}:${formatDigit(SECONDS)}:${formatDigit(MILLISECONDS)}`;
-
-  // if (SECONDS < 10 && MILLISECONDS > 10 && MILLISECONDS < 100) {
-  //   MAIN_TITLE.innerHTML = (`${HOURS}:${MINUTES}:0${SECONDS}:0${MILLISECONDS}`);
-  // } else if (SECONDS < 10 && MILLISECONDS < 10) {
-  //   MAIN_TITLE.innerHTML = (`${HOURS}:${MINUTES}:0${SECONDS}:00${MILLISECONDS}`);
-  // } else if (SECONDS < 10) {
-  //   MAIN_TITLE.innerHTML = (`${HOURS}:${MINUTES}:0${SECONDS}:${MILLISECONDS}`);
-  // } else if (MILLISECONDS > 10 && MILLISECONDS < 100) {
-  //   MAIN_TITLE.innerHTML = (`${HOURS}:${MINUTES}:${SECONDS}:0${MILLISECONDS}`);
-  // } else if (MILLISECONDS < 10) {
-  //   MAIN_TITLE.innerHTML = (`${HOURS}:${MINUTES}:${SECONDS}:00${MILLISECONDS}`);
-  // } else {
-  //   MAIN_TITLE.innerHTML = (`${HOURS}:${MINUTES}:${SECONDS}:${MILLISECONDS}`);
-  // }
+  MAIN_TITLE.innerHTML = `${formatDigit(HOURS, 2)}:${formatDigit(MINUTES, 2)}:${formatDigit(SECONDS, 2)}:${formatDigit(MILLISECONDS, 3)}`;
 
   const TIME_DIFFERENCE = TARGET_DATE - NOW_MILLI;
 
@@ -34,14 +20,15 @@ function displayCurrentTime() {
   const COUNT_MINUTES = Math.floor((TIME_DIFFERENCE % (1000 * 60 * 60)) / (1000 * 60));
   const COUNT_SECONDS = Math.floor((TIME_DIFFERENCE % (1000 * 60)) / 1000);
 
-  COUNTDOWN_TIMER.innerHTML = `${formatDigit(COUNT_HOURS)}:${formatDigit(COUNT_MINUTES)}:${formatDigit(COUNT_SECONDS)}`;
+  COUNTDOWN_TIMER.innerHTML = `${formatDigit(COUNT_HOURS, 2)}:${formatDigit(COUNT_MINUTES, 2)}:${formatDigit(COUNT_SECONDS, 2)}`;
 }
 
 setInterval(displayCurrentTime, 100);
 
-function formatDigit(num) {
-  if (num < 10) {
-    num = `0${num}`;
-  }
-  return num;
+function formatDigit(num, minDigits) {
+  const formattedNumber = num.toLocaleString('it-IT', {
+    minimumIntegerDigits: minDigits,
+  })
+
+  return formattedNumber;
 }
