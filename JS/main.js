@@ -20,6 +20,11 @@ function displayCurrentTime() {
   const COUNT_MINUTES = Math.floor((TIME_DIFFERENCE % (1000 * 60 * 60)) / (1000 * 60));
   const COUNT_SECONDS = Math.floor((TIME_DIFFERENCE % (1000 * 60)) / 1000);
 
+  if (TIME_DIFFERENCE < 0) {
+    COUNTDOWN_TIMER.innerHTML = 'Time Out';
+    return;
+  }
+
   COUNTDOWN_TIMER.innerHTML = `${formatDigit(COUNT_HOURS, 2)}:${formatDigit(COUNT_MINUTES, 2)}:${formatDigit(COUNT_SECONDS, 2)}`;
 }
 
